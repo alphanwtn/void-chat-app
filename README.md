@@ -2,7 +2,6 @@
 
 ## short-term
 
-- refacto with context
 - animation when someone is typing
 - animation when someone connect/disconnect
 - store conv in database (for everybody to be sync)
