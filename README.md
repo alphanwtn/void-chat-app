@@ -4,16 +4,18 @@
 
 - refacto with context
 - animation when someone is typing
+- animation when someone connect/disconnect
 - store conv in database (for everybody to be sync)
 - make dialog generic
 - easter egg
+
+## mid-term
+
+- deploy app
+- connected user pannel
 - make disconnection obvious
 
 ## long-term
 
-- deploy app
 - encrypt data
-
-## bonus
-
 - create rooms

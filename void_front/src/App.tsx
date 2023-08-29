@@ -1,60 +1,17 @@
 import "./App.css";
-import { FC, useEffect, useState } from "react";
-import messagesDb from "./mocks/messagesDb";
+import { FC, useState } from "react";
 import ChatForm from "./components/ChatForm/ChatForm";
 import NavBar from "./components/NavBar/NavBar";
 import MessageList from "./components/MessageList/MessageList";
-import { MessageData } from "./types/MessageData";
 import LoginModal from "./components/LoginModal/LoginModal";
-import { UserData } from "./types/UserData";
-import { socket } from "./socket";
 import StatusBar from "./components/StatusBar/Statusbar";
+import useSocketConnection from "./hooks/useSocketConnection";
+import useSocketMessages from "./hooks/useSocketMessages";
 
 const App: FC = () => {
-    const [messages, setMessages] = useState<MessageData[]>(messagesDb);
-    const [isConnected, setIsConnected] = useState(false);
-    const [currentAccount, setCurrentAccount] = useState<UserData | undefined>(
-        undefined
-    );
+    const messages = useSocketMessages();
+    const [isConnected, currentAccount] = useSocketConnection();
     const [accountModal, setAccountModal] = useState(false);
-
-    const onConnect = () => {
-        setIsConnected(true);
-
-        const accountDataRaw = localStorage.getItem("account-data");
-
-        if (accountDataRaw) {
-            socket.emit("auth-request", JSON.parse(accountDataRaw));
-        }
-    };
-
-    const onDisconnect = () => {
-        setIsConnected(false);
-        setCurrentAccount(undefined);
-    };
-
-    const onAuthent = (response: UserData | undefined) => {
-        setCurrentAccount(response);
-        localStorage.setItem("account-data", JSON.stringify(response));
-    };
-
-    const onNewMessage = (newMessage: MessageData) => {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-    };
-
-    useEffect(() => {
-        socket.on("connect", onConnect);
-        socket.on("disconnect", onDisconnect);
-        socket.on("auth-response", onAuthent);
-        socket.on("message-to-client", onNewMessage);
-
-        return () => {
-            socket.off("connect");
-            socket.off("disconnect", onDisconnect);
-            socket.off("auth-response", onAuthent);
-            socket.off("message-to-client", onNewMessage);
-        };
-    }, []);
 
     return (
         <div className="App flex h-screen w-screen flex-col justify-between font-cairo tracking-wide">

@@ -20,7 +20,10 @@ const Message: FC<MessageProps> = ({ message, currentAccount }) => {
         <div className="mb-3 flex flex-col">
             {messageSide === "receiver" && (
                 <span className="text-sm text-slate-800">
-                    {message.author.pseudo}
+                    {message.author.pseudo}{" "}
+                    <i className="text-slate-500">
+                        [{message.author.id.slice(0, 4)}]
+                    </i>
                 </span>
             )}
             <span
