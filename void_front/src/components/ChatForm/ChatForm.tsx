@@ -1,14 +1,11 @@
 import { AiOutlineSend } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-import { FC, useState } from "react";
-import { UserData } from "../../types/UserData";
+import { FC, useContext, useState } from "react";
 import { socket } from "../../socket";
+import AuthContext from "../../contexts";
 
-interface ChatFormProps {
-    currentAccount: UserData | undefined;
-}
-
-const ChatForm: FC<ChatFormProps> = ({ currentAccount }) => {
+const ChatForm: FC = () => {
+    const currentAccount = useContext(AuthContext);
     const [formMessage, setFormMessage] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

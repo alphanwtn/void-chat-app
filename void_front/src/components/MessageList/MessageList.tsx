@@ -1,14 +1,11 @@
-import { FC, useEffect, useRef } from "react";
-import { MessageData } from "../../types/MessageData";
+import { FC, useContext, useEffect, useRef } from "react";
 import Message from "../Message/Message";
-import { UserData } from "../../types/UserData";
+import AuthContext from "../../contexts";
+import useSocketMessages from "../../hooks/useSocketMessages";
 
-interface MessageListProps {
-    currentAccount: UserData | undefined;
-    messages: MessageData[];
-}
-
-const MessageList: FC<MessageListProps> = ({ currentAccount, messages }) => {
+const MessageList: FC = () => {
+    const currentAccount = useContext(AuthContext);
+    const messages = useSocketMessages();
     const bottomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

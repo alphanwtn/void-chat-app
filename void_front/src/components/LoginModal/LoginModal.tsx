@@ -1,20 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { UserData } from "../../types/UserData";
 import { socket } from "../../socket";
+import AuthContext from "../../contexts";
 
 interface LoginModalProps {
     isOpen: boolean;
     closeAccountModal: () => void;
-    currentAccount: UserData | undefined;
 }
 
-const LoginModal: FC<LoginModalProps> = ({
-    isOpen,
-    closeAccountModal,
-    currentAccount,
-}) => {
+const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
     const [formPseudo, setFormPseudo] = useState("");
+    const currentAccount = useContext(AuthContext);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormPseudo(e.target.value);

@@ -16,6 +16,7 @@ module.exports = {
             2,
             { namedComponents: "arrow-function" },
         ],
+        "react/destructuring-assignment": "off",
     },
     parserOptions: {
         project: "./void_front/tsconfig.json",
