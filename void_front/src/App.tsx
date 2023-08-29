@@ -20,6 +20,12 @@ const App: FC = () => {
 
     const onConnect = () => {
         setIsConnected(true);
+
+        const accountDataRaw = localStorage.getItem("account-data");
+
+        if (accountDataRaw) {
+            socket.emit("auth-request", JSON.parse(accountDataRaw));
+        }
     };
 
     const onDisconnect = () => {
@@ -27,8 +33,9 @@ const App: FC = () => {
         setCurrentAccount(undefined);
     };
 
-    const onAuthent = (res: any) => {
-        setCurrentAccount(res);
+    const onAuthent = (response: UserData | undefined) => {
+        setCurrentAccount(response);
+        localStorage.setItem("account-data", JSON.stringify(response));
     };
 
     const onNewMessage = (newMessage: MessageData) => {
