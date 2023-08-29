@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { socket } from "../../socket";
-import AuthContext from "../../contexts";
+import { socket } from "../socket";
+import { AuthContext } from "../contexts";
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -9,8 +9,9 @@ interface LoginModalProps {
 }
 
 const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
-    const [formPseudo, setFormPseudo] = useState("");
     const currentAccount = useContext(AuthContext);
+
+    const [formPseudo, setFormPseudo] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormPseudo(e.target.value);
@@ -50,10 +51,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
     };
 
     return (
-        <dialog
-            open={isOpen}
-            className=" top-1/2 rounded-lg border bg-white text-lg"
-        >
+        <dialog open={isOpen} className=" top-1/2 rounded-lg border bg-white text-lg">
             <p className="mb-3">Entrez un pseudo</p>
             <form onSubmit={handleSubmit}>
                 <input

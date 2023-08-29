@@ -1,11 +1,13 @@
 import { AiOutlineSend } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { FC, useContext, useState } from "react";
-import { socket } from "../../socket";
-import AuthContext from "../../contexts";
+import { socket } from "../socket";
+import { ConnectionContext, AuthContext } from "../contexts";
 
 const ChatForm: FC = () => {
     const currentAccount = useContext(AuthContext);
+    const isConnected = useContext(ConnectionContext);
+
     const [formMessage, setFormMessage] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,21 +33,18 @@ const ChatForm: FC = () => {
     };
 
     return (
-        <form
-            className="bottom-0 flex h-24 w-screen gap-2 bg-white p-2"
-            onSubmit={handleSubmit}
-        >
+        <form className="bottom-0 flex h-24 w-screen gap-2 bg-white p-2" onSubmit={handleSubmit}>
             <input
                 className="w-full resize-none rounded-lg border border-gray-300 bg-white py-1 px-3 text-base text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
                 value={formMessage}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                disabled={!currentAccount}
+                disabled={!currentAccount || !isConnected}
             />
             <button
                 className="aria-hidden: rounded-lg border-0 bg-red-700 bg-opacity-90 px-3 text-lg text-zinc-100 disabled:bg-gray-500"
                 type="submit"
-                disabled={!currentAccount}
+                disabled={!currentAccount || !isConnected}
             >
                 <AiOutlineSend />
             </button>
