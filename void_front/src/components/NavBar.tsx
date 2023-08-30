@@ -1,9 +1,10 @@
 import { FC, useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { AuthContext } from "../contexts";
+import { AuthContext, ConnectionContext } from "../contexts";
 import LoginModal from "./LoginModal";
 
 const NavBar: FC = () => {
+    const isConnected = useContext(ConnectionContext);
     const currentAccount = useContext(AuthContext);
 
     const [accountModal, setAccountModal] = useState(false);
@@ -25,7 +26,9 @@ const NavBar: FC = () => {
                     </button>
                 </div>
                 <span className="bg-white py-2 text-center font-bold text-zinc-700 drop-shadow-md">
-                    {currentAccount ? <>Welcome {currentAccount.pseudo} ! 🔥</> : <>Enter a username to connect !</>}
+                    {!isConnected && <>You are disconnected from the server... 🥲</>}
+                    {isConnected && currentAccount && <>Welcome {currentAccount.pseudo} ! 🔥</>}
+                    {isConnected && !currentAccount && <>Enter a username to chat !</>}
                 </span>
             </header>
 
