@@ -51,11 +51,11 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
     };
 
     return (
-        <dialog open={isOpen} className=" top-1/2 rounded-lg border bg-white text-lg">
+        <dialog open={isOpen} className=" top-1/2 rounded-lg border bg-white p-3 text-lg">
             <p className="mb-3">Entrez un pseudo</p>
             <form onSubmit={handleSubmit}>
                 <input
-                    className="w-full resize-none rounded-lg border border-gray-300 bg-white py-1 px-3 text-base text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
+                    className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-1 text-base text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
                     value={formPseudo}
                     onChange={handleChange}
                     onKeyUp={handleKeyUp}

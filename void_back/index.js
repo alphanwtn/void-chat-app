@@ -31,8 +31,8 @@ io.on("connection", (socket) => {
     const messagesDb = JSON.parse(fs.readFileSync("messagesDb.json", "utf-8"));
 
     messagesDb.push(incomingMessage);
-    io.emit("message-to-client", messagesDb);
     await fs.promises.writeFile("messagesDb.json", JSON.stringify(messagesDb));
+    io.emit("message-to-client", messagesDb);
   });
 });
 
