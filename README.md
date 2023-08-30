@@ -4,7 +4,6 @@
 
 - animation when someone is typing
 - animation when someone connect/disconnect
-- store conv in database (for everybody to be sync)
 - make dialog generic
 - easter egg
 

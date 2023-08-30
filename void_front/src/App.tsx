@@ -7,17 +7,19 @@ import StatusBar from "./components/Statusbar";
 import useSocketAuth from "./hooks/useSocketAuth";
 import useSocketConnection from "./hooks/useSocketConnection";
 import { AuthContext, ConnectionContext } from "./contexts";
+import useSocketMessages from "./hooks/useSocketMessages";
 
 const App: FC = () => {
-    const currentAccount = useSocketAuth();
     const isConnected = useSocketConnection();
+    const currentAccount = useSocketAuth();
+    const messages = useSocketMessages(isConnected);
 
     return (
         <ConnectionContext.Provider value={isConnected}>
             <AuthContext.Provider value={currentAccount}>
                 <div className="App flex h-screen w-screen flex-col justify-between font-cairo tracking-wide">
                     <NavBar />
-                    <MessageList />
+                    <MessageList messages={messages} />
                     <StatusBar />
                     <ChatForm />
                 </div>

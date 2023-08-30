@@ -1,4 +1,6 @@
+const cors = require("cors");
 const express = require("express");
+const fs = require("fs");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
@@ -11,18 +13,26 @@ const io = new Server(httpServer, {
   },
 });
 
+app.use(cors());
+
+app.get("/get-messages", (req, res) => {
+  const messagesDb = fs.readFileSync("messagesDb.json");
+  res.send(messagesDb);
+});
+
 io.on("connection", (socket) => {
   socket.on("auth-request", (...args) => {
-    console.log(args);
-    if (args[0]) {
-      socket.emit("auth-response", args[0]);
-    } else {
-      socket.emit("auth-response", args[0]);
-    }
+    const accountData = args[0];
+    socket.emit("auth-response", accountData);
   });
 
-  socket.on("message-to-serv", (...args) => {
-    io.emit("message-to-client", args[0]);
+  socket.on("message-to-serv", async (...args) => {
+    const incomingMessage = args[0];
+    const messagesDb = JSON.parse(fs.readFileSync("messagesDb.json", "utf-8"));
+
+    messagesDb.push(incomingMessage);
+    io.emit("message-to-client", messagesDb);
+    await fs.promises.writeFile("messagesDb.json", JSON.stringify(messagesDb));
   });
 });
 

@@ -18,7 +18,7 @@ const Message: FC<MessageProps> = ({ message, currentAccount }) => {
             {messageSide === "receiver" && (
                 <p className="text-sm text-slate-800">
                     <span>{message.author.pseudo} </span>
-                    <i className="text-slate-500">[{message.author.id.slice(0, 4)}]</i>
+                    <span className="text-slate-500">[{message.author.id.slice(0, 4)}]</span>
                 </p>
             )}
             <p className={`${handleSideClass} max-w-[75%] rounded-lg border bg-opacity-90 p-2 text-zinc-100 shadow`}>

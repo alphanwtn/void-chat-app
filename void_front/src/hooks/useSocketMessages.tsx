@@ -1,14 +1,21 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
 import { MessageData } from "../types/MessageData";
-import messagesDb from "../mocks/messagesDb";
 
-const useSocketMessages = (): MessageData[] => {
-    const [messages, setMessages] = useState<MessageData[]>(messagesDb);
+const useSocketMessages = (isConnected: boolean): MessageData[] => {
+    const servUrl = import.meta.env.VITE_BACK_URL ?? "undefined";
+    const [messages, setMessages] = useState<MessageData[]>([]);
 
-    const onNewMessage = (newMessage: MessageData) => {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    const onNewMessage = (allDbMessages: MessageData[]) => {
+        setMessages(allDbMessages);
     };
+
+    useEffect(() => {
+        axios.get(`${servUrl}/get-messages`).then((response) => {
+            setMessages(response.data);
+        });
+    }, [isConnected]);
 
     useEffect(() => {
         socket.on("message-to-client", onNewMessage);
