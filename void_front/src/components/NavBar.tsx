@@ -19,7 +19,8 @@ const NavBar: FC = () => {
                     <span className="col-span-2 text-center text-lg">V o i d .</span>
                     <button
                         type="button"
-                        className="ml-auto inline-flex items-center justify-end rounded border border-zinc-300 bg-white py-2 px-2 text-xl hover:bg-gray-200 focus:outline-none"
+                        className={`${accountModal && "bg-gray-200"} ml-auto inline-flex items-center justify-end
+                        rounded border border-zinc-300 bg-white py-2 px-2 text-xl hover:bg-gray-200 focus:outline-none`}
                         onClick={toggleAccountModal}
                     >
                         <CgProfile className="text-zinc-400" />
