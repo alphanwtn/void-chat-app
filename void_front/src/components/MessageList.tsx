@@ -19,7 +19,7 @@ const MessageList: FC<MessageListProps> = ({ messages }) => {
     }, [messages]);
 
     return (
-        <ul className="flex h-full flex-col overflow-scroll p-2 pt-32 ">
+        <ul className="flex h-full flex-col overflow-y-scroll p-2 pt-32">
             {messages.map((message) => (
                 <li key={message.id}>
                     <Message currentAccount={currentAccount} message={message} />
