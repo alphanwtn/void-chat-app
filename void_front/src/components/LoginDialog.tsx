@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { socket } from "../socket";
 import { AuthContext } from "../contexts";
 
-interface LoginModalProps {
+interface LoginDialogProps {
     isOpen: boolean;
     closeAccountModal: () => void;
 }
 
-const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
+const LoginDialog: FC<LoginDialogProps> = ({ isOpen, closeAccountModal }) => {
     const currentAccount = useContext(AuthContext);
 
     const [formPseudo, setFormPseudo] = useState("");
@@ -65,4 +65,4 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, closeAccountModal }) => {
     );
 };
 
-export default LoginModal;
+export default LoginDialog;

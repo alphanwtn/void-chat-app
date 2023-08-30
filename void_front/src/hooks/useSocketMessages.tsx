@@ -4,7 +4,7 @@ import { socket } from "../socket";
 import { MessageData } from "../types/MessageData";
 
 const useSocketMessages = (isConnected: boolean): MessageData[] => {
-    const servUrl = import.meta.env.VITE_BACK_URL ?? "undefined";
+    const servUrl = import.meta.env.VITE_BACK_URL;
     const [messages, setMessages] = useState<MessageData[]>([]);
 
     const onNewMessage = (allDbMessages: MessageData[]) => {

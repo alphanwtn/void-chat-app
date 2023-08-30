@@ -3,7 +3,7 @@ import { FC } from "react";
 import ChatForm from "./components/ChatForm";
 import NavBar from "./components/NavBar";
 import MessageList from "./components/MessageList";
-import StatusBar from "./components/Statusbar";
+import StatusBar from "./components/StatusBar";
 import useSocketAuth from "./hooks/useSocketAuth";
 import useSocketConnection from "./hooks/useSocketConnection";
 import { AuthContext, ConnectionContext } from "./contexts";

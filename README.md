@@ -4,16 +4,19 @@
 
 - animation when someone is typing
 - animation when someone connect/disconnect
-- make dialog generic
 - easter egg
+- deploy app
 
 ## mid-term
 
-- deploy app
-- connected user pannel
-- make disconnection obvious
+- make disconnection obvious ?
+- optimize message data management and transfert
 
 ## long-term
 
 - encrypt data
 - create rooms
+
+## random ideas
+
+- make dialog generic ??
