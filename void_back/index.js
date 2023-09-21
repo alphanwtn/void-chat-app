@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-nocheck
 const cors = require("cors");
 const _ = require("lodash");
 const express = require("express");
@@ -34,17 +34,18 @@ io.on("connection", (socket) => {
         socket.emit("auth-response", accountData);
 
         if (accountData) {
-            // @ts-ignore
             socket.accountData = accountData;
+            _.remove(onlineUsers, (user) => user.id === accountData.id);
             onlineUsers.push(accountData);
             io.emit("user-list-update", onlineUsers);
+            io.emit("connect-notification", socket.accountData);
         }
 
         if (!accountData) {
-            // @ts-ignore
             _.remove(onlineUsers, (user) => user === socket.accountData);
-            socket.emit("auth-response", accountData);
+            socket.emit("auth-response", undefined);
             io.emit("user-list-update", onlineUsers);
+            io.emit("disconnect-notification", socket.accountData);
         }
     });
 
@@ -58,9 +59,9 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        // @ts-ignore
         _.remove(onlineUsers, (user) => user === socket.accountData);
         io.emit("user-list-update", onlineUsers);
+        io.emit("disconnect-notification", socket.accountData);
     });
 });
 

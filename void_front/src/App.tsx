@@ -7,6 +7,7 @@ import useSocketAuth from "./hooks/useSocketAuth";
 import useSocketConnection from "./hooks/useSocketConnection";
 import { AuthContext, ConnectionContext } from "./contexts";
 import useSocketMessages from "./hooks/useSocketMessages";
+import NotificationPanel from "./components/NotificationPanel";
 
 const App: FC = () => {
     const isConnected = useSocketConnection();
@@ -18,6 +19,7 @@ const App: FC = () => {
             <AuthContext.Provider value={currentAccount}>
                 <div className="App">
                     <NavBar />
+                    <NotificationPanel />
                     <MessageList messages={messages} />
                     <ChatForm />
                 </div>
